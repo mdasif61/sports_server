@@ -24,6 +24,7 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   },
+  useUnifiedTopology: true
 });
 
 async function run() {
@@ -107,7 +108,13 @@ async function run() {
       const option = { upsert: true };
       const updateData={
         $set:{
-          quantity:toyInfo.quantity
+          quantity:toyInfo.quantity,
+          name:toyInfo.name,
+          price:toyInfo.price,
+          rating:toyInfo.rating,
+          category:toyInfo.category,
+          desc:toyInfo.desc,
+          picture:toyInfo.picture
         }
       };
       const result=await toyCollection.updateOne(filter,updateData,option);
