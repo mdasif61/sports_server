@@ -104,12 +104,13 @@ async function run() {
       const toyInfo=req.body;
       console.log(toyInfo)
       const filter={_id:new ObjectId(id)};
+      const option = { upsert: true };
       const updateData={
         $set:{
           quantity:toyInfo.quantity
         }
       };
-      const result=await toyCollection.updateOne(filter,updateData);
+      const result=await toyCollection.updateOne(filter,updateData,option);
       res.send(result)
     })
 
