@@ -99,13 +99,12 @@ async function run() {
         res.send(result)
     });
 
-    app.put('/toyUpdate/:id',async(req,res)=>{
+    app.patch('/toyUpdate/:id',async(req,res)=>{
       const id=req.params.id;
       console.log(id)
       const toyInfo=req.body;
       console.log(toyInfo)
       const filter={_id:new ObjectId(id)};
-      const option = { upsert: true };
       const updateData={
         $set:{
           quantity:toyInfo.quantity,
@@ -117,7 +116,7 @@ async function run() {
           picture:toyInfo.picture
         }
       };
-      const result=await toyCollection.updateOne(filter,updateData,option);
+      const result=await toyCollection.updateOne(filter,updateData);
       res.send(result)
     })
 
