@@ -120,6 +120,14 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/mytoys/:text',async(req,res)=>{
+      const text=req.params.text;
+      if(req.params.text==='Minimum'){
+        const result=await toyCollection.find({}).sort({price:-1}).toArray()
+        res.send(result)
+      }
+    })
+
     app.delete('/mytoys/:id',async(req,res)=>{
       const id=req.params.id;
       const query={_id:new ObjectId(id)};
