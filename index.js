@@ -121,6 +121,10 @@ async function run() {
     })
 
     app.get('/mytoys/:email/:text',async(req,res)=>{
+      if(req.params.text==='Any'){
+        const result=await toyCollection.find().toArray();
+        res.send(result)
+      }
       if(req.params.text==='Minimum' && req.params.email){
         const result=await toyCollection.find().sort({price:1}).toArray()
         res.send(result)
