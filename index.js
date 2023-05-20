@@ -122,10 +122,11 @@ async function run() {
 
     app.get('/mytoys/:email/:text',async(req,res)=>{
       if(req.params.text==='Minimum' && req.params.email){
-        const result=await toyCollection.find(query).sort({price:-1}).toArray()
+        const result=await toyCollection.find().sort({price:1}).toArray()
         res.send(result)
-      }else if(req.params.text==="Maximum" && req.params.email){
-        const result=await toyCollection.find().sort({price:1}).toArray();
+      }
+      if(req.params.text==="Maximum" && req.params.email){
+        const result=await toyCollection.find().sort({price:-1}).toArray();
         res.send(result)
       }
     })
