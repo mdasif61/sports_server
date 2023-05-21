@@ -120,17 +120,21 @@ async function run() {
       res.send(result)
     })
 
-    app.get('/mytoys/:email/:text',async(req,res)=>{
+    app.get('/mytoys/:text',async(req,res)=>{
+      const query={}
+      if(req.query?.email){
+        query={sellerEmail:req.query.email}
+      }
       if(req.params.text==='Any'){
-        const result=await toyCollection.find().toArray();
+        const result=await toyCollection.find(query).toArray();
         res.send(result)
       }
-      if(req.params.text==='Minimum' && req.params.email){
-        const result=await toyCollection.find().sort({price:1}).toArray()
+      if(req.params.text==='Minimum'){
+        const result=await toyCollection.find(query).sort({price:1}).toArray()
         res.send(result)
       }
-      if(req.params.text==="Maximum" && req.params.email){
-        const result=await toyCollection.find().sort({price:-1}).toArray();
+      if(req.params.text==="Maximum"){
+        const result=await toyCollection.find(query).sort({price:-1}).toArray();
         res.send(result)
       }
     })
